@@ -1,0 +1,18 @@
+
+<!doctype html>
+<html lang="en">
+{% block content %}
+
+{% for chatMessage in chatMessage %}
+    <div class="notification"><strong>{{ chatMessage.futsal }}</strong>: {{ chatMessage.user }}: {{ chatMessage.timestamp }}</div>
+{% empty %}
+    <div class="notification">No notifications</div>
+{% endfor %}
+</div>
+
+{% endblock content %}
+
+</html>
+
+</html>
+

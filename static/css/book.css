@@ -1,0 +1,117 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.book-futsal{
+   
+    padding: 20rem 10rem 10rem;
+    background: rgb(202,202,203);
+    background: radial-gradient(circle, rgba(202,202,203,1) 60%, rgba(29,92,178,0.9781162464985994) 100%);
+    height: 10px;
+    background-size: contain;
+    
+}
+
+.register-futsal{
+   
+    padding: 14rem 10rem 32.4rem;
+    background: rgb(202,202,203);
+    background: radial-gradient(circle, rgba(202,202,203,1) 60%, rgba(29,92,178,0.9781162464985994) 100%);
+    height: 100px;
+  
+}
+
+.book-form{
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: auto;
+    margin-top: -200px;
+}
+.login-form12{
+    height: 10%;
+    
+    
+}
+
+
+.login-image img {
+    width: 450px; 
+    height: 400px; 
+    object-fit: fill;
+    border-radius: 10px;
+}
+
+ 
+
+.futsal-title{
+    padding-bottom: 1rem;
+    text-align: center;
+}
+.book-form-content{
+    border-radius: 30px;
+    padding: 1rem 2rem;
+    background-color: rgb(244, 235, 235);
+}
+.login-form11{
+    padding: 1rem 3rem;
+   
+
+}
+.book-form-content{
+    border-radius:20px;
+    height: 100%;
+    width: 50%;
+    overflow: hidden;
+    margin-left: -100px;
+}
+.already-acc{
+    text-align: center;
+  
+}
+.sign-btn{
+    padding: 1rem 1rem;
+    font-size: 1rem;
+    
+    
+}
+.login-form11 input{
+    border-radius: 1rem 1rem 1rem;
+    width: 70%;
+    height: 35px;
+    
+}
+
+.book input{
+    width: 500%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border: none;
+}
+label{
+    display: block;
+    padding-bottom: 0.5rem;
+    font-size: 1.2rem;
+    color: #000 !important;
+    font-weight: bolder;
+}
+
+.button{
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    display: block;
+    float: centre;
+    font-size: 1rem;
+    border:navy;
+    color: #fff;
+    background: rgb(141, 110, 71);
+    margin: 1rem;
+}
+
+

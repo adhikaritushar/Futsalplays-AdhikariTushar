@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Create Team{% endblock title %}
+{% block head %}
+{% endblock head %}
+{% block body %}
+
+    <section class="custom-booking-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                
+                    
+                    <div class="ctimage" style= "background-color: #222d55; height: 70vh; width: 80vh;  margin-left:60px">
+                       
+                        <img src="{% static 'img\Futsal logo.png' %}" alt="" class="img-fluid" style= "margin-left: 50px; height: 50vh; width: 60vh;">
+                        <h1 style="color: white; text-align: center;">
+                            Create Team <i class="fa-solid fa-circle-arrow-right"></i><span></span> <br />
+                            "Defeat  Your Opponents" 
+                          </h1>
+                    </div>
+                 
+                           
+                </div>
+                <div class="col-md-6">
+                    
+                    <div class="custom-form-bg custom-login-form">
+                    
+                        <div class="custom-form-content custom-login-form">
+                            
+                            {% for message in messages %}
+                            <div class="alert alert-success" role="alert">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                            <br/>
+                            <form action="" class="custom-login-form" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <button class="card-button" type="submit" name="submit">Create Team</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+{% load static %}
+{% load socialaccount %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-9">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/f198b9808e.js" crossorigin="anonymous"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/book.css' %}">
+    <link rel="stylesheet" href="{% static 'boot/css/bootstrap.min.css' %}">
+
+    <style>
+        .book-futsal {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid #ccc; /* Add border */
+            border-radius: 10px; /* Add border radius */
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); /* Add box shadow */
+       
+            height:500px;
+            margin-bottom: 300px;
+            background-color: #cacacb;
+            
+        }
+
+        .login-image img {
+            width: 200px; /* Adjust the size of the image */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .login-form {
+            width: 500px; /* Adjust the width of the form */
+            margin-top: 20px;
+            height: 300px;
+        }
+
+        .signin-with {
+            margin-top: 20px;
+        }
+        
+
+        
+        .button {
+            width: 50%;
+            background-color: #21130d; /* Set button background color */
+            color: #fff; /* Set button text color */
+            border: none;
+            padding: 5px 5px 5px;
+            margin-left: 125px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #0056b3; /* Change button background color on hover */
+        }
+
+        .already-account {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .already-account a {
+            color: #007bff; /* Set link color */
+            text-decoration: none;
+        }
+
+        .already-account a:hover {
+            text-decoration: underline; /* Underline link on hover */
+        }
+
+        .signin-with a {
+            margin: 0 10px;
+            color: #007bff; /* Set link color */
+        }
+
+        .signin-with a:hover {
+            text-decoration: none; /* Remove underline on hover */
+        }
+    </style>
+</head>
+
+<body>
+    
+    <section class="book-futsal">
+        <div class="login-form-container">
+            <div class="login-image">
+                <img src="{% static 'img/logof.png' %}" alt="">
+            </div>
+            <div class="futsal-title">
+                <h2>Sign In Account</h2>
+            </div>
+            <form action="/login/" class="login-form" method='POST'>
+                {% csrf_token %}
+                <label for="username">Username</label>
+                <input type="username" name="username" id='username' required>
+                
+
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required>
+                <br/>
+                <br/>
+                <button class="button" type="submit" name="submit"> Login</button>
+              
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}"> <i class="fas fa-exclamation-circle"></i> {{ message }}</div>
+                {% endfor %}
+              
+              
+                <div class="already-acc">
+                    <p>Create an account<a href="{% url 'register' %}" style="text-decoration: none;" class="sign-btn">Sign Up</a></p>
+                </div>
+            </form>
+            <div class="already-account">
+                <p><a href="{% url 'password_reset' %}" style="text-decoration: none;" class="sign-btn">Forget Password?</a></p>
+            </div>
+            <div class="signin-with d-flex justify-content-center">
+                {% comment %} <a href="{% provider_login_url 'google'%}?next=/"><i class="fa-brands fa-google"></i>oogle</a> {% endcomment %}
+                {% comment %} <a href=""><i class="fa-brands fa-facebook"></i>acebook</a> {% endcomment %}
+            </div>
+        </div>
+    </section>
+
+    <script src="{% static 'boot/js/bootstrap.min.js' %}"></script>
+    <script>
+        {% for message in messages %}
+        alertify.set('notifier','position', 'top-right');
+        
+        alertify.error('{{message}}');
+
+        {% endfor %}
+    </script>
+</body>
+</html>

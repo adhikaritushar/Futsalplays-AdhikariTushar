@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock title %}
+{% block body %}
+
+<section>
+    <div class="container">
+      {% for team in teams|dictsortreversed:"join_date" %}
+      <div class="row">
+          {% if team.team_image %}
+          <div class="col-lg-6 col-md-6 col-sm-12 py-3">
+              <img
+              src="{{team.team_image.url}}"
+              alt="" class="img-thumbnail"
+              style="width: 500px; height: 250px; object-fit: cover"/>
+          </div>
+          {% endif %}
+          <div class="col-lg-6 col-md-6 col-sm-12 py-3">
+            <a href="{% url 'team_detail' team.id %}" class="text-decoration-none">
+              <h4>{{team.name}}</h4></a
+            >
+            <p>From {{team.location}}</p>
+            <p>Join Date: {{team.join_date}}</p>
+          </div>
+      </div>
+      {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

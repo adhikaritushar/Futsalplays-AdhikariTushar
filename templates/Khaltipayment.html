@@ -1,0 +1,229 @@
+ <!-- <!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <title>Payment Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .container {
+        text-align: center;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h3 {
+        color: white;
+        margin-bottom: 20px;
+      }
+      #payment-button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      #payment-button:hover {
+        background-color: #45a049;
+      }
+      a {
+        display: block;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #777;
+      }
+      a:hover {
+        color: #333;
+      }
+      .product-image {
+        width: 200px;
+        height: auto;
+        margin-bottom: 20px;
+      }
+    </style>
+    <script src="https://unpkg.com/khalti-checkout-web@latest/dist/khalti-checkout.iffe.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <img
+        src="{% static 'img/khalti.png' %}"
+        alt="Product Image"
+        class="product-image"
+      />
+      <div class="container" style="background-color: #542867">
+        <h3>Your total amount is Rs. {{ total_price }}</h3>
+
+        <br />
+        <br />
+        <form action="{% url 'payment_page' %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="purchase_order_id" value="2" />
+          <input
+            type="hidden"
+            name="return_url"
+            value="http://127.0.0.1:8000/payment-success/"
+          />
+          <input type="hidden" name="amount" value="{{ total_price }}" />
+          <input type="hidden" name="email" value="{{ user.email }}" />
+          <input type="hidden" name="name" value=" {{ user.username }}" />
+          <button id="payment-button" type="submit">
+            Pay with khalti
+          </button>
+        </form>
+        <a href="/" style="color: white">Go to Home page</a>
+      </div>
+    </div>
+    {% comment %}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      var config = {
+
+          "publicKey": "test_public_key_157be8504025484faf4c7248a2bf7341",
+          "productIdentity": "book_futsal_{{book_futsal.id}}",
+          "productName": "book_futsal_{{book_futsal.id}}",
+          "productUrl": "http://localhost:8000",
+          "paymentPreference": [
+              "MOBILE_BANKING",
+              "KHALTI",
+              "EBANKING",
+              "CONNECT_IPS",
+              "SCT",
+              ],
+          "eventHandler": {
+              onSuccess (payload) {
+                  // hit merchant api for initiating verfication
+                  axios.get("/khalti-verify/", {
+                      params: {
+                          "token": payload.token,
+                          "amount": payload.amount,
+                          "order_id": "{{book_futsal.id}}"
+                      }
+                  }).then(function(resp){
+                      if (resp.data.success = true){
+                          alert("Thanks. Payment Completed Successfully")
+                          location.href = "{% url 'payment_success' %}";
+                      }else{
+                          alert("Sorry. Error occurred")
+                          location.href = "{{request.build_absolute_uri}}";
+                      }
+                  })
+              },
+              onError (error) {
+                  console.log(error);
+              },
+              onClose () {
+                  console.log('widget is closing');
+              }
+          }
+      };
+
+      var checkout = new KhaltiCheckout(config);
+      var btn = document.getElementById("payment-button");
+      btn.onclick = function () {
+          // minimum transaction amount must be 10, i.e 1000 in paisa.
+          checkout.show({amount: {{book_futsal.futsal.price}}*10});
+      }
+    </script>
+    {% endcomment %}
+  </body>
+</html>  
+ 
+ -->
+
+
+ <!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-image {
+      width: 200px;
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      color: #333;
+    }
+
+    #stripe-button {
+      background-color: #6772e5;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    #stripe-button:hover {
+      background-color: #5469d4;
+    }
+
+    a {
+      display: block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #777;
+    }
+
+    a:hover {
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- <img src="{% static 'C:\Users\tujes\OneDrive\Desktop\FutsalPlays\media\img\Stripe_Logo.png' %}" alt="Payment Logo" class="product-image"> -->
+     <img src="{% static 'img\Stripe2.0.webp' %}" alt="Stripe Logo" class="product-image">
+
+    <h3>Your total amount is Rs. {{ total_price }}</h3>
+
+    <a id="stripe-button" href="https://buy.stripe.com/test_aFa8wRdzadJgcpV1mu9MY00" target="_blank">
+      Pay with Stripe
+    </a>
+
+    <a href="/">Go to Home page</a>
+  </div>
+</body>
+</html>
+

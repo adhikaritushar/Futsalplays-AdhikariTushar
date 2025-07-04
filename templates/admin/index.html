@@ -1,0 +1,153 @@
+{% extends 'admin/inc/base.html' %} 
+
+
+{% load static %}
+
+{% block content %}
+<div class="col-lg-6 mx-auto mb-4">
+  <div class="card shadow">
+      <div class="card-body text-center">
+          <h2 class="font-italic text-primary">FutsalPlays Admin Dashboard</h2>
+      </div>
+  </div>
+</div>
+<h3><section></h3>
+  <div class="container py-4" style= "margin-left: 10rem;">
+    <div class="row gx-3">
+      <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-3">
+        <div class="card shadow custom-bg-color">
+            <div class="card-body text-center ">
+                <h5 class="card-title text-white ">Total Fustal</h5>
+                <p class="card-text text-white">
+                    {{ futsal_count }} 
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-3">
+      <div class="card shadow" style= "background-color: #3399ff;"  "transition: background-color 0.3s;">
+          <div class="card-body text-center" 
+               onmouseover="this.style.backgroundColor='#f9b116'; this.style.color= '#f9b116';" 
+               onmouseout="this.style.backgroundColor=''; this.style.color='';">
+              <h5 class="card-title text-white">Total Booking</h5>
+              <p class="card-text text-white">{{ booking_count }}</p>
+          </div>
+      </div>
+  </div>
+   
+  <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-3">
+    <div class="card shadow" style= "background-color: #e55352;"  "transition: background-color 0.3s;">
+        <div class="card-body text-center"
+             onmouseover="this.style.backgroundColor='#e8d631'; this.style.color='white';"
+             onmouseout="this.style.backgroundColor=''; this.style.color='';">
+            <h5 class="card-title text-white">Total User</h5>
+            <p class="card-text text-white">{{ user_count }}</p>
+        </div>
+    </div>
+</div>
+    </section>
+
+    <section>
+      <div class="container py-4">
+        <div class="row gx-3">
+      <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-3">
+        
+        <div class="card shadow ">
+          <div class="card-body text-center">
+            <h5 class="card-title text-success">Total Reviews</h5>
+            <p class="card-text">
+            {{ review_count }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-3">
+        <div class="card shadow ">
+          <div class="card-body text-center">
+            <h5 class="card-title text-success">Total Teams</h5>
+            <p class="card-text">
+            {{ teams }}
+            </p>
+          </div>
+        </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-3">
+          <div class="card shadow ">
+            <div class="card-body text-center">
+              <h5 class="card-title text-success">Total Match</h5>
+              <p class="card-text">
+              {{ match }}
+              </p>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+        
+    </div>
+  </div>
+</section>
+
+<section>
+  <h1 style="text-align:center;" class="text-success">Graph (Futsal vs Booking)</h1>
+  <div>
+    <canvas id="myChart"></canvas>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+  var futsaldata = {{futsaldata|safe}};
+  var book_futsal = {{book_futsal|safe}};
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: futsaldata,
+      datasets: [{
+        label: '# of Booking',
+        data: book_futsal,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+<section>
+  <div class="container">
+      <h2 class="text-center text-success mb-4">Latest Booked Futsals</h2>
+      <div class="table-responsive">
+          <table class="table table-bordered table-striped">
+              <thead class="table-dark">
+                  <tr>
+                      <th scope="col">S.N.</th>
+                      <th scope="col">Futsal Name</th>
+                      <th scope="col">Futsal Location</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Time</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for futsal in futsals %}
+                  <tr>
+                      <td>{{ forloop.counter }}</td>
+                      <td>{{ futsal.futsal.name }}</td>
+                      <td>{{ futsal.futsal.location }}</td>
+                      <td>{{ futsal.date }}</td>
+                      <td>From {{ futsal.start_time }} - {{ futsal.end_time }}</td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+  </div>
+</section>
+
+{% endblock %}

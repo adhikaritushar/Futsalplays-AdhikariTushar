@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Booking{% endblock title %}
+{% block body %}
+
+<style>
+    form input[type="text"],
+    form input[type="password"]
+     {
+        border: 1px solid black; 
+        border-radius: 0.25rem;
+        padding: 0.375rem 0.75rem; 
+    }
+    
+    .center {
+        text-align: center;
+    }
+</style>
+<section class="book-futsal" style="display: flex; justify-content: center; align-items: center; height: calc(100vh + 20rem); background-color: #f9f9f9; background-image: url({% static 'img/court.webp' %}); background-size: cover;">
+    <div class="book-form login-form" style="display: flex; flex-direction: column; max-width: 800px; border-radius: 10px; overflow: hidden; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); background-color: ; margin-top: -10rem">
+        <div class="book-form-content" style="padding: 50px; width: 100%; margin-left: 10px;">
+            <div class="futsal-title" style="color: #333; font-size: 24px; margin-bottom: 20px; text-align: center;">
+                <h2>Book Futsal Now</h2>
+            </div>
+           
+            <form action="" class="login-form" method="POST" style="width: 100%;">
+                {% csrf_token %}
+                {{ form.as_p }}
+                {% if request.user.is_authenticated %}
+                <button class="button" type="submit" name="submit" style="display: block; margin: 0 auto; background-color: #007bff; color: #fff; font-size: 16px; padding: 12px 50px; 
+                border: none; border-radius: 5px; cursor: pointer; text-decoration: none;">Book Futsal</button>
+                {% else %}
+                <a href="{% url 'login' %}" class="button" style="display: block; margin: 0 auto; background-color: #007bff; color: #fff; font-size: 16px; padding: 12px 10rem; border: 
+                none; border-radius: 5px; cursor: pointer; text-decoration: none; width: 100%; text-align: center;">Book</a>
+                {% endif %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" style="padding: 10px; margin-bottom: 20px; border-radius: 5px; 
+                    background-color: {% if message.tags == 'success' %}#d4edda; color: #155724;{% else %}#f8d7da; color: #721c24;{% endif %};">
+                    {{ message }}
+                </div> 
+                {% endfor %}
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

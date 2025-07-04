@@ -1,0 +1,356 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock title %}
+
+{% block body %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  
+  *,
+  *::before,
+  *::after {
+      margin: 10;
+      padding: 10;
+      box-sizing: border-box;
+  }
+  
+  /* .Home-Container {
+      margin-top: 3.2rem; 
+  } */
+  
+  
+  .HomeHeaderContainer {
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      background: url('{% static "img/bannerbg.jpg" %}') no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  
+  .hearContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+  .headerQuote {
+      margin-bottom: 4rem;
+    }
+  
+  .headerQuote h1 {
+      line-height: 4.5rem;
+      font-size: 62px;
+      font-family: 'Poppins', sans-serif;
+      margin-right: 4rem;
+      color: #ffff;
+    }
+  
+  .headerQuote .above-quote {
+      font-size: 20px;
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 15px;
+      color: #AAF40C;
+    }
+  
+  .headerQuote h1 span {
+      color: #AAF40C;
+    }
+  
+  .Home-Container img {
+      height: auto;
+      max-width: 420px;
+    }
+  
+  .VenueListContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
+    }
+  
+  .venueListQuote {
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 2rem;
+    }
+  
+  .venueListQuote h2 span {
+      color: #457eff;
+    }
+  
+  .venueListQuote p {
+      max-width: 700px;
+    }
+  
+  .venueContainer {
+      display: flex;
+      gap: 1rem;
+      transition: transform 0.5s ease-in-out; /* Add a smooth transition for sliding */
+    }
+  
+  .venueList {
+      height: 28rem;
+      width: 25rem;
+      border: 1px solid #edf0f2;
+      border-radius: 8px;
+      transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    }
+  
+  .venueList.first {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+  
+  .venueImage {
+      height: 12rem; 
+      width: 100%;
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      overflow: hidden; 
+    }
+  
+  .venueImage img {
+      height: 100%; 
+      width: 100%;
+      object-fit: cover; 
+      border-top-right-radius: 8px;
+      border-top-left-radius: 8px;
+    }
+  
+  .likeIcon {
+      margin-top: 10px;
+      margin-left: 22rem;
+      display: block;
+      font-size: 1.2rem;
+    }
+  
+  .venueInfoContainer {
+      padding-left: 18px;
+      padding-top: 20px;
+    }
+  
+  .venueName {
+      font-size: 1.3rem;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+    }
+  
+  .venueInfo {
+      color: #7b8292;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+    }
+  
+  .venueIcon {
+      font-size: 1.2rem;
+    }
+  
+  .venueInfo .venueText {
+      margin-left: 5px;
+    }
+  
+  .venueInfoContainer .venueInfo:nth-child(3) {
+      margin-left: 5px;
+    }
+  
+  .venueInfoContainer hr {
+      margin-top: 1.2rem;
+    }
+  
+  .userInfo-bookButton {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: row;
+    }
+  
+  .userInfo {
+      display:  flex;
+      align-items: center;
+      gap: 10px;
+    }
+  
+  .userInfo img {
+      border-radius: 50%;
+      height: 2.5rem;
+    }
+  
+  .userInfo .userName {
+      color: #7b8292;
+      font-weight: 500;
+    }
+  
+  .bookButton {
+      border: 2px solid #457eff; 
+      height: 3rem;
+      width: 20rem;
+      border-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      font-weight: 600;
+      margin-right: 1rem;
+      cursor: pointer;
+      flex-grow: 1;
+    }
+  
+  .slide-dots {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+  
+  .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #ccc;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+  
+  .dot.active {
+      background-color: #457eff;
+    }
+  
+  .responsive-img {
+      max-width: 100%;
+      height: auto;
+      transition: transform 0.3s ease-in-out; /* Add a smooth transition effect */
+    }
+  
+  .responsive-img:hover {
+      transform: scale(1.1); /* Increase the size on hover */
+    }
+    .roanldoBackground {
+      width: 100%;
+      margin-bottom: 5rem;
+      height: 35rem;
+      border: 1px solid black;
+      background: url('{% static "img/court.jpg" %}');
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: flex;
+      color: #ffff;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+      font-family: 'Poppins', sans-serif;
+  }
+
+  .headings{
+    margin-bottom: 2rem;
+  }
+
+  .bbutton{
+    margin-top: 2rem;
+    padding: 14px 50px  14px 50px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    background-color: #0000;
+    color: #ffff;
+    border: 1px solid #ffff;
+    border-radius: 4px
+
+  }
+  .bbutton:hover{
+    background-color: #ffff;
+    color: black;
+  }
+
+ 
+</style>
+
+
+<section class="latest-bg">
+  <section class="Home-Container">
+    <div class="HomeHeaderContainer">
+      <div class="hearContainer">
+        <div class="headerQuote">
+          <div class="above-quote">World Class Sports Venues and Premium Courts</div>
+          <h1>
+            Choose Your <span>Venues</span> <br />
+            And Start Your Training
+          </h1>
+        </div>
+        <img src="{% static 'img/whi.png' %}" alt="" class="responsive-img" />
+      </div>
+    </div>
+  </section>
+  
+    <div class="container py-5 text-center">
+    <h3 style="margin-top: 20px;">Futsal Near You!!!</h3>
+
+    <ul>
+      {% for futsal in futsals %}
+        <li>{{ futsal.name }} - {{ futsal.location }}</li>
+      {% endfor %}
+    </ul>
+    <a class="text-center btn btn-warning" href="{% url 'get_location' %}">Click to Recommends Nearest Futsal</a>
+  </div>
+
+</section>
+
+<div class="roanldoBackground">
+  <div class="headings">
+    <h1>Easy Book Your Fustal </h1>
+    <h1>Online Booking Portal</h1>
+  </div>
+  <a class="bbutton" href="{% url 'futsal' %}" role="button">Book Now</a>
+
+</div>
+
+<!-- Sliders -->
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+      <!-- {% for row in Slider %} -->
+      <div class="carousel-item {% if forloop.counter0 == 0 %}active{% endif %}" data-interval="100">
+          <img src="{{ row.image.url }}" class="d-block  w-100" alt="{{ row.title }}">
+          <div class="carousel-caption" style="background-color:rgba(228, 228, 240, 0);">
+              </br>
+              <a class="btn btn-warning" href="{% url 'contact' %}" role="button">Contact us for more details</a>
+              <a class="btn btn-success" href="{% url 'book_futsal' %}" role="button">Book Now</a>
+          </div>
+      </div>
+      <!-- {% endfor %}   -->
+  </div>
+</div>
+<!-- Sliders -->
+
+<section class="foot-search">
+  <div class="footsal-section mt-4">
+    <div class="search-section-form">
+      <div class="search-title">
+        <h3>Find your favourite futsal here</h3>
+      </div>
+      <form action="{% url 'searchfutsal' %}" method="get" class="search-footsal">
+        {% csrf_token %}
+        <div class="footsal-search-main">
+          <div class="form-left footsal-search d-flex">
+            <i class="fa-solid fa-football fa-football1"></i>
+            <input type="text" name="futsalsearch" value="" placeholder="Name of Futsal" />
+          </div>
+          <div class="form-left footsal-search d-flex">
+            <i class="fa-solid fa-dollar-sign fa-football1"></i>
+            <input type="text" name="futsalcost" value="" placeholder="Enter Price" />
+          </div>
+        </div>
+        <button type="submit" class="card-button">Search</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Our Futsal Teams -->
+{% endblock %}

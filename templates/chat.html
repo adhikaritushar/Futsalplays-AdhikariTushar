@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Chat{% endblock title %}
+
+{% block css %}
+{% load custom_filters %}
+{% endblock css %} {% block body %}
+
+   
+<!-- latest footsal -->
+<section>
+    <div class="container latest-footsal">
+        <div class="footsal-items">
+            <div class="container" style="text-align: center;">
+                <h2 style="font-weight: bold;">"Pair up with your sports partners"</h2>
+            </div>
+            <div class="futsal-container" style="display: flex; flex-wrap: wrap; justify-content: center; padding: 20px;">
+                {% for futsal in futsals %}
+                <div class="card" style="width: 300px; margin: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                    <div class="card-img-top" style="border-top-left-radius: 10px; border-top-right-radius: 10px; overflow: hidden;">
+                        <img src="{{ futsal.image.url }}" alt="{{ futsal.name }}" style="width: 100%; height: 200px; object-fit: cover;">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" style="text-align: center; margin-bottom: 10px;">{{ futsal.name }}</h5>
+                        <a href="{% url 'futsal_detail' pk=futsal.pk %}?chat_clicked=true" class="card-button"><i class="fas fa-comment" style="color: white;"></i></a>
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>  
+    </div>
+</section>
+{% endblock %}
+   
+
+
