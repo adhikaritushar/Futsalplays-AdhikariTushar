@@ -19,7 +19,6 @@
   <link rel="stylesheet" href="{% static 'css/book.css' %}">
   <link rel="stylesheet" href="{% static 'boot/css/bootstrap.min.css' %}">
 
-  <!-- Layout & Design Fixes -->
   <style>
     html, body {
       height: 100%;
@@ -34,11 +33,13 @@
     }
 
     .content-wrapper {
-      flex: 1;
+      flex: 1 0 auto;
+      padding-bottom: 60px; /* spacing above footer */
+      z-index: 2;
     }
 
     .footsal-navbar {
-      background: linear-gradient(90deg, #4b208c, #1e90ff);
+      background: linear-gradient(90deg, #079ee9, #1c62a8);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
 
@@ -90,23 +91,26 @@
     }
 
     .ending-footer {
-      background: #1e3a8a;
-      padding: 10px 20px;
+      background: #079ee9;
       display: flex;
       justify-content: space-between;
       align-items: center;
       color: white;
+      padding: 5px 15px;
+      font-size: 13px;
+      height: 50px;
+      flex-shrink: 0;
     }
 
     .ending-footer img {
-      width: 60px;
-      height: 60px;
+      width: 40px;
+      height: 40px;
     }
 
     .social-icons a {
       color: #facc15;
-      font-size: 22px;
-      margin-left: 15px;
+      font-size: 18px;
+      margin-left: 12px;
       transition: 0.3s ease;
     }
 
@@ -116,7 +120,7 @@
 
     #myBtn {
       position: fixed;
-      bottom: 40px;
+      bottom: 60px;
       right: 40px;
       z-index: 99;
       font-size: 22px;
@@ -126,6 +130,12 @@
       border-radius: 50%;
       padding: 10px 15px;
       cursor: pointer;
+    }
+
+    /* Ensure search visibility */
+    input[type="search"], .btn-search {
+      z-index: 10 !important;
+      position: relative;
     }
   </style>
 </head>
@@ -197,7 +207,7 @@
     </div>
   </header>
 
-  <!-- Body content -->
+  <!-- Main Content -->
   <div class="content-wrapper">
     {% block body %}
     {% endblock body %}
@@ -207,7 +217,7 @@
   <footer>
     <div class="ending-footer">
       <div>
-        <img src="{% static 'img\Futsal logo.png' %}" alt="footer logo">
+        <img src="{% static 'img/Futsal logo.png' %}" alt="footer logo">
         <span class="ms-2">&copy; 2025 FutsalPlays. All rights reserved.</span>
       </div>
       <div class="social-icons">
